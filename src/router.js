@@ -5,12 +5,17 @@ function getRouteInfo() {
   return hash;
 }
 function changeLink() {
+  const [firstLink, secondLink]=document.querySelectorAll("header>a");
   const hash = getRouteInfo();
   if (hash === "checkValuteCost") {
     currencyConverter.destroyConverter();
+    firstLink.classList.add("active");
+    secondLink.classList.contains("active") && secondLink.classList.remove("active");
     currentRate.init();
   } else if (hash === "countValute") {
     currentRate.destroyPage();
+    secondLink.classList.add("active");
+    firstLink.classList.contains("active") && firstLink.classList.remove("active");
     currencyConverter.init();
   }
 }

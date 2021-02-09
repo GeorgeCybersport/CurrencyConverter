@@ -53,19 +53,22 @@ export default {
       });
       let items = JSON.parse(localStorage.getItem("favourite"));
       if (!items) {
-        localStorage.setItem("favourite", JSON.stringify(favorite));
+        if (favorite) {
+          localStorage.setItem("favourite", JSON.stringify(favorite));
+        }
       } else {
         if (Array.isArray(items)) {
-          if (!this.findData(items, favorite)) {
+          if (favorite) {
             items.unshift(favorite);
             localStorage.setItem("favourite", JSON.stringify(items));
           }
         } else {
-          if (items.ID !== favorite.ID)
+          if (favorite) {
             localStorage.setItem(
               "favourite",
               JSON.stringify([items, favorite])
             );
+          }
         }
       }
       this.filterData();
@@ -73,9 +76,11 @@ export default {
   },
   filterData() {
     const items = JSON.parse(localStorage.getItem("favourite"));
+    console.log(items);
     if (items) {
       if (Array.isArray(items)) {
         this.valutesList = this.valutesList.filter((valute) => {
+          console.log(valute);
           return !this.findData(items, valute);
         });
         this.favouriteValutesList = items;
@@ -89,6 +94,7 @@ export default {
     this.renderList();
   },
   findData(items, favorite) {
+    console.log(items);
     const result = items.find((item) => {
       return item.ID === favorite.ID;
     });
@@ -105,7 +111,6 @@ export default {
     return tags;
   },
   renderList() {
-    const uls = document.getElementsByTagName("ul");
     const [favUl, ul] = document.getElementsByTagName("ul");
     let list = this.getListTags(this.valutesList);
     const favList = this.getListTags(this.favouriteValutesList);
@@ -113,13 +118,19 @@ export default {
     favUl.innerHTML = favList;
   },
   getListTags(arr) {
-    const list = [];
-    arr.forEach((elem) => {
-      const tag = `<li>${Math.round(elem.Value * 100) / 100} рублей за ${
-        elem.Nominal
-      } ${elem.CharCode}</li>`;
-      list.push(tag);
-    });
+    let list = [];
+    if (Array.isArray(arr)) {
+      arr.forEach((elem) => {
+        const tag = `<li>${Math.round(elem.Value * 100) / 100} рублей за ${
+          elem.Nominal
+        } ${elem.CharCode}</li>`;
+        list.push(tag);
+      });
+    } else {
+      list = `<li>${Math.round(arr.Value * 100) / 100} рублей за ${
+        arr.Nominal
+      } ${arr.CharCode}</li>`;
+    }
     return list;
   },
   renderFields: async function () {

@@ -9,6 +9,9 @@ body {
   padding-top: 20px;
   margin: auto;
 }
+a.active{
+  color: #fff;
+}
 @media (min-width: 1140px) {
   .container {
     width: 1140px;
@@ -29,7 +32,7 @@ body {
     justify-content: center;
   }
   header a {
-    color: #fff;
+    color: #ccc;
     text-decoration: none;
     font-size: 25px;
   }
@@ -69,7 +72,7 @@ body {
     margin-right: 200px;
   }
   header a {
-    color: #fff;
+    color: #ccc;
     text-decoration: none;
     font-size: 23px;
   }
@@ -100,7 +103,7 @@ body {
     margin-right: 200px;
   }
   header a {
-    color: #fff;
+    color: #ccc;
     text-decoration: none;
     font-size: 20px;
   }
@@ -121,7 +124,7 @@ body {
     justify-content: space-around;
   }
   header a {
-    color: #fff;
+    color: #ccc;
     text-decoration: none;
     font-size: 18px;
   }
